@@ -1,12 +1,18 @@
-import express from 'express';
-import connectDB from './src/config/db';
-import cors from 'cors';
-import dotenv from 'dotenv'
-import authRoutes from "./src/Routing/authRouting"
 
+import dotenv from 'dotenv';
 dotenv.config();
+import express from 'express';
+import connectDB from './src/config/db.js';
+import cors from 'cors';
 
-connectDB();
+import authRoutes from "./src/Routing/authRouting.js";
+
+
+  // console.log("MONGO_URI =", JSON.stringify(process.env.MONGO_URI));
+connectDB()
+.then(() => console.log("Successful DB Connected"))
+    .catch((error) => console.log("DB connection Lose error:", error.message))
+    
 
 const app = express();
 

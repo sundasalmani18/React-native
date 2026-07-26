@@ -1,7 +1,8 @@
-const User = require("../models/User");
-const bcrypt = require("bcryptjs");
+import Users from '../Model/authModel.js';
+import bcrypt from 'bcryptjs';
 
-const signup = async (req, res) => {
+
+export const signup = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
@@ -11,7 +12,7 @@ const signup = async (req, res) => {
       });
     }
 
-    const userExist = await User.findOne({ email });
+    const userExist = await Users.findOne({ email });
 
     if (userExist) {
       return res.status(400).json({
@@ -23,7 +24,7 @@ const signup = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    const user = await User.create({
+    const user = await Users.create({
       name,
       email,
       password: hashedPassword,
@@ -41,6 +42,3 @@ const signup = async (req, res) => {
   }
 };
 
-module.exports = {
-  signup,
-};
