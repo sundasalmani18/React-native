@@ -36,7 +36,7 @@ export default function App() {
       {/* <ShippingScreen/> */}
       {/* <CartScreen /> */}
       {/* <HomeScreen/> */}
-      {/* <LoginScreen/> */}
+      <LoginScreen/>
       {/* <SplashScreen/> */}
       {/* <SignUpScreen/> */}
       {/* <OnboardingScreen/> */}

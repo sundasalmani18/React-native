@@ -5,15 +5,62 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
+  Alert,
 } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import axios from "axios";
 
 export default function LoginScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [secure, setSecure] = useState(true);
+
+  const handleLogin = async () => {
+    if (!email || !password) {
+      Alert.alert("Error", "Please enter email and password");
+      return;
+    }
+
+    try {
+      const res = await axios.post(
+        "http://192.168.1.16:8080/api/auth/login",
+        {
+          email,
+          password,
+        }
+      );
+
+      console.log("Login Success:", res.data);
+
+      Alert.alert("Success", res.data.message);
+
+      // Token
+      const token = res.data.token;
+      console.log("Token:", token);
+await AsyncStorage.setItem("token", res.data.token);
+await AsyncStorage.setItem("user", JSON.stringify(res.data.user));
+
+      // Home Screen
+      // navigation.replace("Home");
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.log(error.response?.data);
+
+        Alert.alert(
+          "Error",
+          error.response?.data?.message || "Login Failed"
+        );
+      } else {
+        Alert.alert("Error", "Something went wrong");
+      }
+    }
+  };
+
+
 
   return (
     <View style={styles.container}>
@@ -37,9 +84,10 @@ export default function LoginScreen() {
 
         <TextInput
           placeholder="Enter your email"
-          placeholderTextColor="#B0B0B0"
-          value={email}
+           value={email}
           onChangeText={setEmail}
+          placeholderTextColor="#B0B0B0"
+         
           style={styles.input}
         />
       </View>
@@ -82,7 +130,8 @@ export default function LoginScreen() {
 
       {/* Login */}
 
-      <TouchableOpacity style={styles.loginButton}>
+      <TouchableOpacity  onPress={handleLogin}
+       style={styles.loginButton}>
         <Text style={styles.loginText}>Login</Text>
       </TouchableOpacity>
 

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from 'axios'
 import {
   SafeAreaView,
   View,
@@ -6,12 +7,51 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
+  Alert,
 } from "react-native";
 import { Ionicons, Feather } from "@expo/vector-icons";
 
 export default function SignUpScreen({ navigation }: any) {
   const [secure, setSecure] = useState(true);
   const [agree, setAgree] = useState(false);
+    const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSignup = async () => {
+    if (!name || !email || !password) {
+      Alert.alert("Error", "Please fill all fields");
+      return;
+    }
+
+    try {
+      const res = await axios.post(
+        "http://192.168.1.16:8080/api/auth/register",
+        {
+          name,
+          email,
+          password,
+        }
+      );
+      console.log("response",res.data)
+
+      Alert.alert("Success", res.data.message);
+
+      setName("");
+      setEmail("");
+      setPassword("");
+    } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      Alert.alert(
+        "Error",
+        error.response?.data?.message || "Signup Failed"
+      );
+    }
+     else {
+      Alert.alert("Error", "Something went wrong");
+    }
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -41,6 +81,8 @@ export default function SignUpScreen({ navigation }: any) {
 
         <TextInput
           placeholder="Enter your name"
+          value={name}
+        onChangeText={setName}
           placeholderTextColor="#A7A7A7"
           style={styles.input}
         />
@@ -53,6 +95,8 @@ export default function SignUpScreen({ navigation }: any) {
         <TextInput
           placeholder="Enter your email"
           placeholderTextColor="#A7A7A7"
+           value={email}
+        onChangeText={setEmail}
           keyboardType="email-address"
           style={styles.input}
         />
@@ -65,6 +109,8 @@ export default function SignUpScreen({ navigation }: any) {
         <TextInput
           placeholder="Enter your password"
           placeholderTextColor="#A7A7A7"
+           value={password}
+        onChangeText={setPassword}
           secureTextEntry={secure}
           style={styles.input}
         />
@@ -97,7 +143,7 @@ export default function SignUpScreen({ navigation }: any) {
       </TouchableOpacity>
 
       {/* Button */}
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button}   onPress={handleSignup}>
         <Text style={styles.buttonText}>Sign Up</Text>
       </TouchableOpacity>
 
