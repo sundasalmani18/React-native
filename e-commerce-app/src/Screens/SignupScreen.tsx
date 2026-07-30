@@ -26,7 +26,7 @@ export default function SignUpScreen({ navigation }: any) {
 
     try {
       const res = await axios.post(
-        "http://192.168.1.16:8080/api/auth/register",
+        "http://192.168.1.13:8080/api/auth/register",
         {
           name,
           email,

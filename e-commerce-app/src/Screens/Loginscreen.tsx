@@ -27,12 +27,15 @@ export default function LoginScreen() {
 
     try {
       const res = await axios.post(
-        "http://192.168.1.16:8080/api/auth/login",
+        "http://192.168.1.13:8080/api/auth/login",
         {
           email,
           password,
         }
+      
       );
+          console.log("Email:", email);
+  console.log("Password:", password);
 
       console.log("Login Success:", res.data);
 
@@ -49,6 +52,7 @@ await AsyncStorage.setItem("user", JSON.stringify(res.data.user));
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.log(error.response?.data);
+         console.log("Message:", error.message);
 
         Alert.alert(
           "Error",

@@ -35,7 +35,7 @@ export const Signup = async (req, res) => {
       message: "Signup Successful",
       user,
     });
-    console.log("user add ",user);
+    console.log("user add ", user);
   } catch (error) {
     res.status(500).json({
       message: error.message,
@@ -44,6 +44,8 @@ export const Signup = async (req, res) => {
 };
 
 export const Login = async (req, res) => {
+    console.log("Login API Hit");
+
   try {
     const { email, password } = req.body;
 
@@ -74,6 +76,7 @@ export const Login = async (req, res) => {
     res.json({
       success: true,
       token,
+      message:"Login Successful",
       user,
     });
 
