@@ -96,8 +96,7 @@ export default function SignUpScreen({ navigation }: any) {
           placeholder="Enter your email"
           placeholderTextColor="#A7A7A7"
            value={email}
-        onChangeText={setEmail}
-          keyboardType="email-address"
+        onChangeText={setEmail}          keyboardType="email-address"
           style={styles.input}
         />
       </View>

@@ -32,10 +32,10 @@ export default function LoginScreen() {
           email,
           password,
         }
-      
+
       );
-          console.log("Email:", email);
-  console.log("Password:", password);
+      console.log("Email:", email);
+      console.log("Password:", password);
 
       console.log("Login Success:", res.data);
 
@@ -44,15 +44,15 @@ export default function LoginScreen() {
       // Token
       const token = res.data.token;
       console.log("Token:", token);
-await AsyncStorage.setItem("token", res.data.token);
-await AsyncStorage.setItem("user", JSON.stringify(res.data.user));
+      await AsyncStorage.setItem("token", res.data.token);
+      await AsyncStorage.setItem("user", JSON.stringify(res.data.user));
 
       // Home Screen
       // navigation.replace("Home");
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.log(error.response?.data);
-         console.log("Message:", error.message);
+        console.log("Message:", error.message);
 
         Alert.alert(
           "Error",
@@ -70,14 +70,14 @@ await AsyncStorage.setItem("user", JSON.stringify(res.data.user));
     <View style={styles.container}>
       {/* Email */}
       <View style={{ marginBottom: 40 }}>
-    <Text style={styles.title}>
-        Welcome 
-    </Text>
+        <Text style={styles.title}>
+          Welcome
+        </Text>
 
-    <Text style={styles.subtitle}>
-        Login to continue shopping
-    </Text>
-</View>
+        <Text style={styles.subtitle}>
+          Login to continue shopping
+        </Text>
+      </View>
 
       <View style={styles.inputContainer}>
         <MaterialCommunityIcons
@@ -88,10 +88,10 @@ await AsyncStorage.setItem("user", JSON.stringify(res.data.user));
 
         <TextInput
           placeholder="Enter your email"
-           value={email}
+          value={email}
           onChangeText={setEmail}
           placeholderTextColor="#B0B0B0"
-         
+
           style={styles.input}
         />
       </View>
@@ -102,7 +102,7 @@ await AsyncStorage.setItem("user", JSON.stringify(res.data.user));
         <MaterialCommunityIcons
           name="lock-outline"
           size={22}
-          // color="#FF4B3A"
+        // color="#FF4B3A"
         />
 
         <TextInput
@@ -134,8 +134,8 @@ await AsyncStorage.setItem("user", JSON.stringify(res.data.user));
 
       {/* Login */}
 
-      <TouchableOpacity  onPress={handleLogin}
-       style={styles.loginButton}>
+      <TouchableOpacity onPress={handleLogin}
+        style={styles.loginButton}>
         <Text style={styles.loginText}>Login</Text>
       </TouchableOpacity>
 
@@ -186,22 +186,22 @@ await AsyncStorage.setItem("user", JSON.stringify(res.data.user));
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-  backgroundColor: "#fff",
-  paddingHorizontal: 24,
-  paddingTop: 50,
-  paddingBottom: 40,
+    backgroundColor: "#fff",
+    paddingHorizontal: 24,
+    paddingTop: 50,
+    paddingBottom: 40,
   },
-  title:{
- fontSize:34,
- fontWeight:"700",
- color:"#1F2937"
-},
+  title: {
+    fontSize: 34,
+    fontWeight: "700",
+    color: "#1F2937"
+  },
 
-subtitle:{
- marginTop:8,
- fontSize:16,
- color:"#6B7280"
-},
+  subtitle: {
+    marginTop: 8,
+    fontSize: 16,
+    color: "#6B7280"
+  },
 
   inputContainer: {
     flexDirection: "row",
@@ -247,7 +247,7 @@ subtitle:{
     color: "#FF4B3A",
     fontSize: 15,
     fontWeight: "500",
-   marginLeft:200
+    marginLeft: 200
   },
 
   loginButton: {
