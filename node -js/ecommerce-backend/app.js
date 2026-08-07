@@ -1,11 +1,12 @@
 import dotenv from 'dotenv';
-dotenv.config();
+
 import express from 'express';
 import connectDB from './src/config/db.js';
 import cors from 'cors';
-
+import categoryRouting from "./src/Routing/categoryRouting.js"
 import authRoutes from "./src/Routing/authRouting.js";
-
+import productRouting from "./src/Routing/productRouting.js"
+dotenv.config();
 
 // console.log("MONGO_URI =", JSON.stringify(process.env.MONGO_URI));
 connectDB()
@@ -26,6 +27,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/auth", authRoutes);
+app.use("/api/category", categoryRouting);
+app.use("/api/product", productRouting);
 
 const PORT = process.env.PORT || 5000;
 

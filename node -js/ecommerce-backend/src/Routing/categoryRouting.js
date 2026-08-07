@@ -1,4 +1,5 @@
 import express from "express";
+import upload from "../middleware/upload.js";
 import {
     addCategory,
     getCategories,
@@ -8,11 +9,11 @@ import {
 
 const router = express.Router();
 
-router.post("/addcategory", addCategory);
+router.post("/addcategory", upload.single("image"),addCategory);
 
 router.get("/allcategories", getCategories);
 
-router.put("/update/:id", updateCategory);
+router.put("/update/:id", upload.single("image"), updateCategory);
 
 router.delete("/delete/:id", deleteCategory);
 
